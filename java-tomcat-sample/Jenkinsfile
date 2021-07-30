@@ -1,3 +1,7 @@
+def sout = new StringBuilder(), serr = new StringBuilder()
+def proc = 'ls /var/lib/jenkins/workspace/Package_Application/java-tomcat-sample/target'.execute()
+
+
 pipeline {
     agent any
     stages {
@@ -14,7 +18,9 @@ pipeline {
         }
         stage('view artifact loc'){
             steps{
-                dir /var/lib/jenkins/workspace/Pipeline_Automated/java-tomcat-sample/target
+                    proc.consumeProcessOutput(sout, serr)
+                    proc.waitForOrKill(1000)
+                    println "out> $sout\nerr> $serr"
             }
         }
         stage('Deploy in Staging Environment'){

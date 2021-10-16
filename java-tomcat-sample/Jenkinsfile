@@ -12,11 +12,6 @@ pipeline {
                 }
             }
         }
-        stage('view artifact loc'){
-            steps{
-                sh "ls /var/lib/jenkins/workspace/Pipeline_Automated/java-tomcat-sample/target"
-            }
-        }
         stage('Deploy in Staging Environment'){
             steps{
                 build job: 'Deploy_Build'
